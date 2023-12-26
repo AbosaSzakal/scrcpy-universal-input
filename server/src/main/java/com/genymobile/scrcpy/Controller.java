@@ -193,6 +193,18 @@ public class Controller implements AsyncProcessor {
         char[] chars = decomposed != null ? decomposed.toCharArray() : new char[]{c};
         KeyEvent[] events = charMap.getEvents(chars);
         if (events == null) {
+            Ln.w("No events received from charmap to make u+" + String.format("%04x", (int) c) + " - Trying clipboard workaround");
+
+            String originalClipboard = device.getClipboardText();
+
+            device.setClipboardText(String.valueOf(c));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && device.supportsInputEvents()) {
+                device.pressReleaseKeycode(KeyEvent.KEYCODE_PASTE, Device.INJECT_MODE_WAIT_FOR_FINISH);
+            }
+
+            device.setClipboardText(originalClipboard);
+
             return false;
         }
         for (KeyEvent event : events) {
