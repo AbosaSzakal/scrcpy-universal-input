@@ -1,4 +1,20 @@
-**This GitHub repo (<https://github.com/Genymobile/scrcpy>) is the only official
+# CHANGES
+
+This version is able to read special characters (like ő and ű from hungarian) from the keyboard and input them on the phone.
+It does this by overwriting the clipboard with the required character, pasting it then restoring the original text in the clipboard.
+This will likely cause problems with any apps or keyboards that provide a clipboard history.
+
+I searched for a long time for nicer solutions, but I haven't found any that would work for me. 
+Some resources if someone wants to look into this issue:
+https://github.com/Genymobile/scrcpy/issues/37 (extending the accent decomposition does not work)
+https://github.com/Genymobile/scrcpy/pull/3838 (various ideas without any complete solutions, including partial solutions using keyboard apps)
+https://github.com/Genymobile/scrcpy/pull/1751 (implementation of external keyboard idea, but have to manualy switch back to prev. keyboard after use)
+https://stackoverflow.com/questions/10752936/injecting-non-english-characters-in-android (requires root to change built-in keymap file)
+The --hid-keyboard option only works on Linux while mirroring, and is unfixable on Windows
+
+# ORIGINAL DESCRIPTION
+
+**The GitHub repo (<https://github.com/Genymobile/scrcpy>) is the only official
 source for the project. Do not download releases from random websites, even if
 their name contains `scrcpy`.**
 
